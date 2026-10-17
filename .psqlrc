@@ -1,0 +1,78 @@
+```sql
+/*
+ * PostgreSQL Interactive Terminal Configuration
+ * ------------------------------------------------------------
+ * Purpose:
+ *   Improve readability, usability, and productivity in psql.
+ *
+ * Features:
+ *   - Automatic expanded display for wide query results
+ *   - Informative user/database prompt
+ *   - Query execution timing
+ *   - Explicit NULL value representation
+ *   - Duplicate command history suppression
+ *   - SQL query shortcut
+ *   - Unicode table formatting with visible borders
+ *
+ * Usage:
+ *   Place this file in the home directory of the OS user
+ *   running psql, for example: ~/.psqlrc
+ *
+ * Compatibility:
+ *   PostgreSQL psql clients supporting these meta-commands.
+ */
+
+
+/* ------------------------------------------------------------
+ * 1. Query Result Display
+ * ------------------------------------------------------------ */
+
+-- Automatically switch to expanded display when rows are too wide.
+\x auto
+
+-- Display NULL values explicitly.
+\pset null '[NULL]'
+
+-- Use visible table borders.
+\pset border 2
+
+-- Use Unicode characters for table borders and separators.
+\pset linestyle unicode
+
+
+/* ------------------------------------------------------------
+ * 2. Interactive Prompt
+ * ------------------------------------------------------------ */
+
+-- Format: username@database_name >
+-- %n = username
+-- %/ = database name
+-- %R = prompt separator/status indicator
+-- %# = # for superuser, > for ordinary user
+\set PROMPT1 '%n@%/%R%# '
+
+
+/* ------------------------------------------------------------
+ * 3. Query Execution Feedback
+ * ------------------------------------------------------------ */
+
+-- Display query execution time after each command.
+\timing on
+
+
+/* ------------------------------------------------------------
+ * 4. Command History
+ * ------------------------------------------------------------ */
+
+-- Ignore consecutive duplicate commands in history.
+\set HISTCONTROL ignoredups
+
+
+/* ------------------------------------------------------------
+ * 5. Productivity Shortcuts
+ * ------------------------------------------------------------ */
+
+-- Type :sel followed by a table name to start a SELECT statement.
+-- Example: :sel employees
+\set sel 'SELECT * FROM '
+```
